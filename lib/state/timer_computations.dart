@@ -2,9 +2,9 @@ import './schedule_time_constants.dart';
 
 class TimerComputations {
   static const scheduleMap = {
-    "regular": ScheduleTimeConstants.REGULAR_SCHEDULE,
-    "homeroom": ScheduleTimeConstants.HOMEROOM_SCHEDULE,
-    "conference": ScheduleTimeConstants.CONFERENCE_SCHEDULE
+    "Regular": ScheduleTimeConstants.REGULAR_SCHEDULE,
+    "Homeroom": ScheduleTimeConstants.HOMEROOM_SCHEDULE,
+    "Conference": ScheduleTimeConstants.CONFERENCE_SCHEDULE
   };
 
   static int getTime() {
@@ -36,6 +36,9 @@ class TimerComputations {
   static int getMinutesInto(String schedule) {
     int time = getTime();
     String period = getCurrentPeriod(schedule);
+    if (period == 'invalid') {
+      return -1;
+    }
     int start = scheduleMap[schedule][period]['start'];
     return ((time - start) / 60).round();
   }
@@ -43,6 +46,9 @@ class TimerComputations {
   static int getMinutesLeft(String schedule) {
     int time = getTime();
     String period = getCurrentPeriod(schedule);
+    if (period == 'invalid') {
+      return -1;
+    }
     int end = scheduleMap[schedule][period]['end'];
     return ((end - time) / 60).round();
   }

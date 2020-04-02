@@ -11,11 +11,11 @@ class ScheduleType {
     List<String> regular = ['Monday', 'Tuesday', 'Thursday', 'Friday'];
     List<String> weekend = ['Saturday', 'Sunday'];
     if (regular.contains(day)) {
-      return 'regular';
+      return 'Regular';
     } else if (day == 'Wednesday') {
-      return 'conference';
+      return 'Conference';
     } else if (weekend.contains(day)) {
-      return 'weekend';
+      return 'Weekend';
     }
     return 'invalid';
   }
