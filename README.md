@@ -1,1 +1,1 @@
-# bell-schedule-mobile
+# stuy-bell-schedule
