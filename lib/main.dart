@@ -4,6 +4,8 @@ import './presentation/schedule/schedule_screen.dart';
 import './presentation/timer/timer_screen.dart';
 import './presentation/settings/settings_screen.dart';
 
+import './state/schedule_type.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -12,8 +14,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  static String schedule = ScheduleType.getCurrentSchedule();
   int _selectedPage = 0;
-  final _pageOptions = [ScheduleScreen(), TimerScreen(), SettingsScreen()];
+  final _pageOptions = [
+    ScheduleScreen(schedule: schedule),
+    TimerScreen(schedule: schedule),
+    SettingsScreen(schedule: schedule)
+  ];
 
   @override
   Widget build(BuildContext context) {

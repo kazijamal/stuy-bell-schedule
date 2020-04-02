@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
+  SettingsScreen({Key key, this.schedule}) : super(key: key);
+
+  final String schedule;
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
