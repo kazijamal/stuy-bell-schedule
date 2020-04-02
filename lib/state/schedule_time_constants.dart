@@ -16,7 +16,7 @@ class ScheduleTimeConstants {
     1: {"start": 28800, "end": 31200},
     2: {"start": 31500, "end": 33900},
     3: {"start": 34140, "end": 36540},
-    "homeroom": {"start": 36780, "end": 37500},
+    "HR": {"start": 36780, "end": 37500},
     4: {"start": 37800, "end": 40200},
     5: {"start": 40440, "end": 42840},
     6: {"start": 43080, "end": 45480},
@@ -37,7 +37,7 @@ class ScheduleTimeConstants {
     8: {"start": 46020, "end": 48240},
     9: {"start": 48480, "end": 50700},
     10: {"start": 50940, "end": 53160},
-    "meeting": {"start": 53400, "end": 55800}
+    "M": {"start": 53400, "end": 55800}
   };
 
   static const WEEKEND_SCHEDULE = {"weekend": "vibe"};
