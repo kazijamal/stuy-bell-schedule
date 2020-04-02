@@ -13,7 +13,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text(widget.schedule),
+      body: Text("This is the schedule screen"),
     );
   }
 }
