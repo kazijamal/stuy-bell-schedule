@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import './presentation/schedule/schedule_screen.dart';
+import './presentation/timer/timer_screen.dart';
+import './presentation/settings/settings_screen.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -9,7 +13,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _selectedPage = 0;
-  final _pageOptions = [Text('Schedule'), Text('Timer'), Text('Settings')];
+  final _pageOptions = [ScheduleScreen(), TimerScreen(), SettingsScreen()];
 
   @override
   Widget build(BuildContext context) {
