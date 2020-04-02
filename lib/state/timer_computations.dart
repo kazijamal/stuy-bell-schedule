@@ -3,12 +3,8 @@ import 'package:intl/intl.dart';
 
 import './schedule_time_constants.dart';
 
-const regular = ScheduleTimeConstants.REGULAR_SCHEDULE;
-const homeroom = ScheduleTimeConstants.HOMEROOM_SCHEDULE;
-const conference = ScheduleTimeConstants.CONFERENCE_SCHEDULE;
-
 class TimerComputations {
-  static const schedules = {
+  static const scheduleMap = {
     "regular": ScheduleTimeConstants.REGULAR_SCHEDULE,
     "homeroom": ScheduleTimeConstants.HOMEROOM_SCHEDULE,
     "conference": ScheduleTimeConstants.CONFERENCE_SCHEDULE
@@ -24,5 +20,15 @@ class TimerComputations {
     int currentTime = (currentms / 1000).round();
 
     int time = currentTime - startTime;
+
+    for (var period in scheduleMap[schedule].keys) {
+      var start = scheduleMap[schedule][period]['start'];
+      var end = scheduleMap[schedule][period]['end'];
+      if (time >= start && time < end) {
+        return period;
+      }
+    }
+
+    return "invalid";
   }
 }
