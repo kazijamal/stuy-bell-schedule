@@ -1,20 +1,18 @@
 import 'dart:async';
 import 'package:intl/intl.dart';
-
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../state/schedule_type.dart';
 import '../../state/timer_computations.dart';
 
 class TimerScreen extends StatefulWidget {
-  TimerScreen({Key key, this.schedule}) : super(key: key);
-
-  final String schedule;
-
   @override
   _TimerScreenState createState() => _TimerScreenState();
 }
 
 class _TimerScreenState extends State<TimerScreen> {
+  String _schedule;
   String _period;
   int _minutesInto;
   int _minutesLeft;
@@ -24,27 +22,46 @@ class _TimerScreenState extends State<TimerScreen> {
   @override
   void initState() {
     super.initState();
-
-    _period = TimerComputations.getCurrentPeriod(widget.schedule);
-    _minutesInto = TimerComputations.getMinutesInto(widget.schedule);
-    _minutesLeft = TimerComputations.getMinutesLeft(widget.schedule);
-    _now = DateFormat('jms').format(DateTime.now());
-
-    _everySecond = Timer.periodic(Duration(milliseconds: 500), (Timer t) {
-      setState(() {
-        _minutesInto = TimerComputations.getMinutesInto(widget.schedule);
-        _minutesLeft = TimerComputations.getMinutesLeft(widget.schedule);
-        _now = DateFormat('jms').format(DateTime.now());
-      });
-    });
+    _setScheduleSharedPrefs();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
-
     _everySecond.cancel();
+  }
+
+  Future<String> _getScheduleSharedPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final schedule = prefs.getString('schedule');
+    return schedule;
+  }
+
+  Future<void> _setScheduleSharedPrefs() async {
+    String schedule = await _getScheduleSharedPrefs();
+    if (schedule == null) {
+      setState(() {
+        _schedule = ScheduleType.getCurrentSchedule();
+      });
+    } else {
+      setState(() {
+        _schedule = schedule;
+      });
+    }
+    setState(() {
+      _period = TimerComputations.getCurrentPeriod(_schedule);
+      _minutesInto = TimerComputations.getMinutesInto(_schedule);
+      _minutesLeft = TimerComputations.getMinutesLeft(_schedule);
+      _now = DateFormat('jms').format(DateTime.now());
+
+      _everySecond = Timer.periodic(Duration(milliseconds: 500), (Timer t) {
+        setState(() {
+          _minutesInto = TimerComputations.getMinutesInto(_schedule);
+          _minutesLeft = TimerComputations.getMinutesLeft(_schedule);
+          _now = DateFormat('jms').format(DateTime.now());
+        });
+      });
+    });
   }
 
   @override
@@ -54,8 +71,8 @@ class _TimerScreenState extends State<TimerScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(widget.schedule),
-          Text('$_period'),
+          Text(_schedule),
+          Text(_period),
           Row(
             children: <Widget>[
               Expanded(

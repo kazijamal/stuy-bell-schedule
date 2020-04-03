@@ -1,24 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../state/schedule_data.dart';
+import '../../state/schedule_type.dart';
 
 class ScheduleScreen extends StatefulWidget {
-  ScheduleScreen({Key key, this.schedule}) : super(key: key);
-
-  final String schedule;
-
   @override
   _ScheduleScreenState createState() => _ScheduleScreenState();
 }
 
 class _ScheduleScreenState extends State<ScheduleScreen> {
+  String _schedule;
   List _periods;
   List _times;
 
   void initState() {
     super.initState();
-    _periods = ScheduleData.getPeriods(widget.schedule);
-    _times = ScheduleData.getTimes(widget.schedule);
+    _setScheduleSharedPrefs();
+  }
+
+  Future<String> _getScheduleSharedPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final schedule = prefs.getString('schedule');
+    return schedule;
+  }
+
+  Future<void> _setScheduleSharedPrefs() async {
+    String schedule = await _getScheduleSharedPrefs();
+    if (schedule == null) {
+      setState(() {
+        _schedule = ScheduleType.getCurrentSchedule();
+        _periods = ScheduleData.getPeriods(schedule);
+        _times = ScheduleData.getTimes(schedule);
+      });
+    } else {
+      setState(() {
+        _schedule = schedule;
+        _periods = ScheduleData.getPeriods(schedule);
+        _times = ScheduleData.getTimes(schedule);
+      });
+    }
   }
 
   @override
@@ -28,7 +49,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
             child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(widget.schedule),
+        Text(_schedule),
         Row(
           children: <Widget>[
             Expanded(

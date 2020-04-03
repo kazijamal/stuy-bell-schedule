@@ -14,13 +14,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  static String schedule = ScheduleType.getCurrentSchedule();
   int _selectedPage = 0;
-  final _pageOptions = [
-    ScheduleScreen(schedule: schedule),
-    TimerScreen(schedule: schedule),
-    SettingsScreen(schedule: schedule)
-  ];
+  final _pageOptions = [ScheduleScreen(), TimerScreen(), SettingsScreen()];
 
   @override
   Widget build(BuildContext context) {

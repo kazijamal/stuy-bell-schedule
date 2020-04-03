@@ -4,16 +4,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../state/schedule_type.dart';
 
 class SettingsScreen extends StatefulWidget {
-  SettingsScreen({Key key, this.schedule}) : super(key: key);
-
-  final String schedule;
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _notifs = false;
   String _schedule;
+  bool _notifs = false;
 
   void initState() {
     super.initState();
@@ -27,7 +24,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _setScheduleSharedPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
     String schedule = await _getScheduleSharedPrefs();
     if (schedule == null) {
       setState(() {
