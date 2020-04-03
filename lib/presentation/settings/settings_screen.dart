@@ -9,8 +9,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  String _dayType = 'regular';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
