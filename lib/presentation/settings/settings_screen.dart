@@ -10,7 +10,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   String _schedule;
-  bool _notifs = false;
+  bool _notifs;
 
   void initState() {
     super.initState();
