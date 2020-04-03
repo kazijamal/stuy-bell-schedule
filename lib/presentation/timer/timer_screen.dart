@@ -30,13 +30,21 @@ class _TimerScreenState extends State<TimerScreen> {
     _minutesLeft = TimerComputations.getMinutesLeft(widget.schedule);
     _now = DateFormat('jms').format(DateTime.now());
 
-    _everySecond = Timer.periodic(Duration(seconds: 1), (Timer t) {
+    _everySecond = Timer.periodic(Duration(milliseconds: 500), (Timer t) {
       setState(() {
         _minutesInto = TimerComputations.getMinutesInto(widget.schedule);
         _minutesLeft = TimerComputations.getMinutesLeft(widget.schedule);
         _now = DateFormat('jms').format(DateTime.now());
       });
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+    _everySecond.cancel();
   }
 
   @override
