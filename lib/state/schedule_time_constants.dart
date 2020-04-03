@@ -47,6 +47,6 @@ class ScheduleTimeConstants {
   };
 
   static const WEEKEND_SCHEDULE = {
-    "W": {"start": "Saturday", "end": "Sunday"}
+    "Weekend": {"start": "Saturday", "end": "Sunday"}
   };
 }

@@ -10,11 +10,11 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _notifs = false;
-  String schedule;
+  String _schedule;
 
   void initState() {
     super.initState();
-    schedule = widget.schedule;
+    _schedule = widget.schedule;
   }
 
   @override
@@ -26,7 +26,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: <Widget>[
             Text('Choose Schedule'),
             DropdownButton<String>(
-              value: schedule,
+              value: _schedule,
               icon: Icon(Icons.arrow_downward),
               iconSize: 24,
               elevation: 16,
@@ -36,7 +36,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               onChanged: (String newValue) {
                 setState(() {
-                  schedule = newValue;
+                  _schedule = newValue;
                 });
               },
               items: <String>['Regular', 'Homeroom', 'Conference', 'Weekend']
