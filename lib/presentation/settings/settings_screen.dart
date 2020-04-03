@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../state/schedule_type.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key key, this.schedule}) : super(key: key);
@@ -14,7 +17,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void initState() {
     super.initState();
-    _schedule = widget.schedule;
+    _setScheduleSharedPrefs();
+  }
+
+  Future<String> _getScheduleSharedPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final schedule = prefs.getString('schedule');
+    return schedule;
+  }
+
+  Future<void> _setScheduleSharedPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    String schedule = await _getScheduleSharedPrefs();
+    if (schedule == null) {
+      setState(() {
+        _schedule = ScheduleType.getCurrentSchedule();
+      });
+    } else {
+      setState(() {
+        _schedule = schedule;
+      });
+    }
+  }
+
+  Future<void> _updateScheduleSharedPrefs(String newSchedule) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('schedule', newSchedule);
+    await prefs.setBool('sync', false);
+    setState(() {
+      _schedule = newSchedule;
+    });
+  }
+
+  Future<void> _syncSharedPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('sync', true);
+    String newSchedule = ScheduleType.getCurrentSchedule();
+    await prefs.setString('schedule', newSchedule);
+    _setScheduleSharedPrefs();
   }
 
   @override
@@ -34,10 +74,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 2,
                 color: Colors.blueAccent,
               ),
-              onChanged: (String newValue) {
-                setState(() {
-                  _schedule = newValue;
-                });
+              onChanged: (String newSchedule) {
+                _updateScheduleSharedPrefs(newSchedule);
               },
               items: <String>['Regular', 'Homeroom', 'Conference', 'Weekend']
                   .map<DropdownMenuItem<String>>((String value) {
@@ -60,7 +98,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           secondary: const Icon(Icons.alarm),
         ),
         RaisedButton(
-          onPressed: () {},
+          onPressed: () {
+            _syncSharedPrefs();
+          },
           color: Colors.blue,
           textColor: Colors.white,
           child: const Text('Sync Schedule'),

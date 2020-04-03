@@ -19,7 +19,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     super.initState();
     _periods = ScheduleData.getPeriods(widget.schedule);
     _times = ScheduleData.getTimes(widget.schedule);
-    print(_periods);
   }
 
   @override
