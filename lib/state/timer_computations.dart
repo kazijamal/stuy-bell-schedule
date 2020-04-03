@@ -4,7 +4,8 @@ class TimerComputations {
   static const scheduleMap = {
     "Regular": ScheduleTimeConstants.REGULAR_SCHEDULE,
     "Homeroom": ScheduleTimeConstants.HOMEROOM_SCHEDULE,
-    "Conference": ScheduleTimeConstants.CONFERENCE_SCHEDULE
+    "Conference": ScheduleTimeConstants.CONFERENCE_SCHEDULE,
+    "Weekend": ScheduleTimeConstants.WEEKEND_SCHEDULE
   };
 
   static int getTime() {

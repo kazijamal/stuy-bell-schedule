@@ -46,5 +46,7 @@ class ScheduleTimeConstants {
     "After School": {"start": 55800, "end": 86340}
   };
 
-  static const WEEKEND_SCHEDULE = {"W": "vibe"};
+  static const WEEKEND_SCHEDULE = {
+    "W": {"start": "Saturday", "end": "Sunday"}
+  };
 }

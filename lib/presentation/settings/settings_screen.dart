@@ -9,10 +9,63 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  bool _notifs = false;
+  String schedule;
+
+  void initState() {
+    super.initState();
+    schedule = widget.schedule;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('This is the settings screen'),
+      body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text('Choose Schedule'),
+            DropdownButton<String>(
+              value: schedule,
+              icon: Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              underline: Container(
+                height: 2,
+                color: Colors.blueAccent,
+              ),
+              onChanged: (String newValue) {
+                setState(() {
+                  schedule = newValue;
+                });
+              },
+              items: <String>['Regular', 'Homeroom', 'Conference', 'Weekend']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+          ],
+        ),
+        SwitchListTile(
+          value: _notifs,
+          title: Text("Period Notifications"),
+          onChanged: (bool value) {
+            setState(() {
+              _notifs = !_notifs;
+            });
+          },
+          secondary: const Icon(Icons.alarm),
+        ),
+        RaisedButton(
+          onPressed: () {},
+          color: Colors.blue,
+          textColor: Colors.white,
+          child: const Text('Sync Schedule'),
+        ),
+      ]),
     );
   }
 }
