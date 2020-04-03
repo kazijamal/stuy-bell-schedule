@@ -40,7 +40,7 @@ class TimerComputations {
       return -1;
     }
     int start = scheduleMap[schedule][period]['start'];
-    return ((time - start) / 60).round();
+    return ((time - start) / 60).floor();
   }
 
   static int getMinutesLeft(String schedule) {
@@ -50,6 +50,6 @@ class TimerComputations {
       return -1;
     }
     int end = scheduleMap[schedule][period]['end'];
-    return ((end - time) / 60).round();
+    return ((end - time) / 60).ceil();
   }
 }
