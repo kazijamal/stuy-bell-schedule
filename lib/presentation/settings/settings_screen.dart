@@ -15,6 +15,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void initState() {
     super.initState();
     _setScheduleSharedPrefs();
+    _setNotifsSharedPrefs();
   }
 
   Future<String> _getScheduleSharedPrefs() async {
@@ -53,6 +54,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _setScheduleSharedPrefs();
   }
 
+  Future<bool> _getNotifsSharedPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final notifs = prefs.getBool('notifs');
+    return notifs;
+  }
+
+  Future<void> _setNotifsSharedPrefs() async {
+    bool notifs = await _getNotifsSharedPrefs();
+    if (notifs == null) {
+      setState(() {
+        _notifs = false;
+      });
+    } else {
+      setState(() {
+        _notifs = notifs;
+      });
+    }
+  }
+
+  Future<void> _switchNotifsSharedPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool notifs = await _getNotifsSharedPrefs();
+    if (notifs == null) {
+      notifs = false;
+    }
+    await prefs.setBool('notifs', !notifs);
+    setState(() {
+      _notifs = !notifs;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,9 +119,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           value: _notifs,
           title: Text("Period Notifications"),
           onChanged: (bool value) {
-            setState(() {
-              _notifs = !_notifs;
-            });
+            _switchNotifsSharedPrefs();
           },
           secondary: const Icon(Icons.alarm),
         ),
