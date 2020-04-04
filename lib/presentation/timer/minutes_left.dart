@@ -32,7 +32,7 @@ class MinutesLeft extends StatelessWidget {
           ),
         ),
         SizedBox(height: 10),
-        Text('Minutes Into', style: TextStyle(fontSize: 18)),
+        Text('Minutes Left', style: TextStyle(fontSize: 18)),
       ],
     ));
   }

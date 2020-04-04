@@ -29,9 +29,9 @@ class ScheduleData {
           (new DateTime(now.year, now.month, now.day)).millisecondsSinceEpoch;
 
       for (var period in scheduleMap[schedule].keys) {
-        int start = 1000 * scheduleMap[schedule][period]['start'];
+        int start = scheduleMap[schedule][period]['start'];
         start += startms;
-        int end = 1000 * scheduleMap[schedule][period]['end'];
+        int end = scheduleMap[schedule][period]['end'];
         end += startms;
         var startDate = DateFormat.jm()
             .format(new DateTime.fromMillisecondsSinceEpoch(start));
