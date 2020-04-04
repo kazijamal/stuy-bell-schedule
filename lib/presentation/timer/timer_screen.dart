@@ -38,11 +38,14 @@ class _TimerScreenState extends State<TimerScreen> {
   }
 
   Future<void> _setScheduleSharedPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
     String schedule = await _getScheduleSharedPrefs();
     if (schedule == null) {
+      String newSchedule = ScheduleType.getCurrentSchedule();
       setState(() {
-        _schedule = ScheduleType.getCurrentSchedule();
+        _schedule = newSchedule;
       });
+      await prefs.setString('schedule', newSchedule);
     } else {
       setState(() {
         _schedule = schedule;

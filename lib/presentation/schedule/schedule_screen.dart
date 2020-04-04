@@ -26,13 +26,16 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   }
 
   Future<void> _setScheduleSharedPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
     String schedule = await _getScheduleSharedPrefs();
     if (schedule == null) {
+      String newSchedule = ScheduleType.getCurrentSchedule();
       setState(() {
-        _schedule = ScheduleType.getCurrentSchedule();
-        _periods = ScheduleData.getPeriods(schedule);
-        _times = ScheduleData.getTimes(schedule);
+        _schedule = newSchedule;
+        _periods = ScheduleData.getPeriods(newSchedule);
+        _times = ScheduleData.getTimes(newSchedule);
       });
+      await prefs.setString('schedule', newSchedule);
     } else {
       setState(() {
         _schedule = schedule;

@@ -4,8 +4,6 @@ import './presentation/schedule/schedule_screen.dart';
 import './presentation/timer/timer_screen.dart';
 import './presentation/settings/settings_screen.dart';
 
-import './state/schedule_type.dart';
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
