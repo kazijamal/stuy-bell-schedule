@@ -95,7 +95,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       body: _schedule == null
           ? Center(child: CircularProgressIndicator())
-          : ListView(padding: const EdgeInsets.all(8), children: <Widget>[
+          : ListView(padding: const EdgeInsets.all(20), children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
