@@ -102,7 +102,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Text('Choose Schedule'),
                   DropdownButton<String>(
                     value: _schedule,
-                    icon: Icon(Icons.arrow_downward),
+                    icon: Icon(Icons.arrow_drop_down),
                     iconSize: 24,
                     elevation: 16,
                     underline: Container(
