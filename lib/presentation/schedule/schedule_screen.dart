@@ -4,6 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../state/schedule_data.dart';
 import '../../state/schedule_type.dart';
 
+import './period.dart';
+import './time.dart';
+
 class ScheduleScreen extends StatefulWidget {
   @override
   _ScheduleScreenState createState() => _ScheduleScreenState();
@@ -54,22 +57,24 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(_schedule),
+                  Text(
+                    _schedule,
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 20),
                   Row(
                     children: <Widget>[
                       Expanded(
                         child: Column(
                           children: <Widget>[
-                            // TODO unsupported on older Dart
-                            for (var item in _periods) Text(item)
+                            for (var value in _periods) Period(value: value)
                           ],
                         ),
                       ),
                       Expanded(
                         child: Column(
                           children: <Widget>[
-                            // TODO unsupported on older Dart
-                            for (var item in _times) Text(item)
+                            for (var value in _times) Time(value: value)
                           ],
                         ),
                       ),
