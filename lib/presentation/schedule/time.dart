@@ -14,7 +14,7 @@ class Time extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(10.0),
           child: Container(
-            width: 200.0,
+            width: 175.0,
             height: 35.0,
             child: Material(
               color: Colors.white,

@@ -48,41 +48,91 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     }
   }
 
-  @override
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: _schedule == null
+  //         ? Center(child: CircularProgressIndicator())
+  //         : Center(
+  //             child: Column(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               children: <Widget>[
+  //                 Text(
+  //                   _schedule,
+  //                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+  //                 ),
+  //                 SizedBox(height: 20),
+  //                 Row(
+  //                   children: <Widget>[
+  //                     Expanded(
+  //                       child: Column(
+  //                         children: <Widget>[
+  //                           for (var value in _periods) Period(value: value)
+  //                         ],
+  //                       ),
+  //                     ),
+  //                     Expanded(
+  //                       child: Column(
+  //                         children: <Widget>[
+  //                           for (var value in _times) Time(value: value)
+  //                         ],
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //   );
+  // }
+
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _schedule == null
-          ? Center(child: CircularProgressIndicator())
-          : Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    _schedule,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          children: <Widget>[
-                            for (var value in _periods) Period(value: value)
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          children: <Widget>[
-                            for (var value in _times) Time(value: value)
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints viewportConstraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: viewportConstraints.maxHeight,
             ),
+            child: _schedule == null
+                ? Center(child: CircularProgressIndicator())
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(height: 20),
+                        Text(
+                          _schedule,
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Column(
+                                children: <Widget>[
+                                  for (var value in _periods)
+                                    Period(value: value)
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                children: <Widget>[
+                                  for (var value in _times) Time(value: value)
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
+          ),
+        );
+      },
     );
   }
 }
