@@ -47,6 +47,6 @@ class ScheduleTimeConstants {
   };
 
   static const WEEKEND_SCHEDULE = {
-    "Saturday and Sunday": {"start": 0, "end": 86400}
+    "No School": {"start": 0, "end": 86400}
   };
 }
