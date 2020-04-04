@@ -91,50 +91,56 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text('Choose Schedule'),
-            DropdownButton<String>(
-              value: _schedule,
-              icon: Icon(Icons.arrow_downward),
-              iconSize: 24,
-              elevation: 16,
-              underline: Container(
-                height: 2,
-                color: Colors.blueAccent,
+      body: _schedule == null
+          ? Center(child: CircularProgressIndicator())
+          : ListView(padding: const EdgeInsets.all(8), children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('Choose Schedule'),
+                  DropdownButton<String>(
+                    value: _schedule,
+                    icon: Icon(Icons.arrow_downward),
+                    iconSize: 24,
+                    elevation: 16,
+                    underline: Container(
+                      height: 2,
+                      color: Colors.blueAccent,
+                    ),
+                    onChanged: (String newSchedule) {
+                      _updateScheduleSharedPrefs(newSchedule);
+                    },
+                    items: <String>[
+                      'Regular',
+                      'Homeroom',
+                      'Conference',
+                      'Weekend'
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ],
               ),
-              onChanged: (String newSchedule) {
-                _updateScheduleSharedPrefs(newSchedule);
-              },
-              items: <String>['Regular', 'Homeroom', 'Conference', 'Weekend']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-          ],
-        ),
-        SwitchListTile(
-          value: _notifs,
-          title: Text("Period Notifications"),
-          onChanged: (bool value) {
-            _switchNotifsSharedPrefs();
-          },
-          secondary: const Icon(Icons.alarm),
-        ),
-        RaisedButton(
-          onPressed: () {
-            _syncSharedPrefs();
-          },
-          color: Colors.blue,
-          textColor: Colors.white,
-          child: const Text('Sync Schedule'),
-        ),
-      ]),
+              SwitchListTile(
+                value: _notifs,
+                title: Text("Period Notifications"),
+                onChanged: (bool value) {
+                  _switchNotifsSharedPrefs();
+                },
+                secondary: const Icon(Icons.alarm),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  _syncSharedPrefs();
+                },
+                color: Colors.blue,
+                textColor: Colors.white,
+                child: const Text('Sync Schedule'),
+              ),
+            ]),
     );
   }
 }

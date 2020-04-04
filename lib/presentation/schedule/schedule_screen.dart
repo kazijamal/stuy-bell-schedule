@@ -48,26 +48,32 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-            child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(_schedule),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: Column(
-                children: <Widget>[for (var item in _periods) Text(item)],
-              ),
-            ),
-            Expanded(
-              child: Column(
-                children: <Widget>[for (var item in _times) Text(item)],
-              ),
-            ),
-          ],
-        ),
-      ],
-    )));
+        body: _schedule == null
+            ? Center(child: CircularProgressIndicator())
+            : Center(
+                child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(_schedule),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          children: <Widget>[
+                            for (var item in _periods) Text(item)
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: <Widget>[
+                            for (var item in _times) Text(item)
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              )));
   }
 }

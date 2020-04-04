@@ -70,33 +70,35 @@ class _TimerScreenState extends State<TimerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(_schedule),
-          Text(_period),
-          Row(
-            children: <Widget>[
-              Expanded(
-                  child: Column(
-                children: <Widget>[
-                  Text('$_minutesInto'),
-                  Text('Minutes Into'),
-                ],
-              )),
-              Expanded(
-                  child: Column(
-                children: <Widget>[
-                  Text('$_minutesLeft'),
-                  Text('Minutes Left'),
-                ],
-              )),
-            ],
-          ),
-          Text('$_now'),
-        ],
-      ),
-    ));
+        body: _schedule == null
+            ? Center(child: CircularProgressIndicator())
+            : Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(_schedule),
+                    Text(_period),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                            child: Column(
+                          children: <Widget>[
+                            Text('$_minutesInto'),
+                            Text('Minutes Into'),
+                          ],
+                        )),
+                        Expanded(
+                            child: Column(
+                          children: <Widget>[
+                            Text('$_minutesLeft'),
+                            Text('Minutes Left'),
+                          ],
+                        )),
+                      ],
+                    ),
+                    Text('$_now'),
+                  ],
+                ),
+              ));
   }
 }
