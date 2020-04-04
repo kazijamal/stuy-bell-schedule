@@ -64,11 +64,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _setNotifsSharedPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
     bool notifs = await _getNotifsSharedPrefs();
     if (notifs == null) {
       setState(() {
         _notifs = false;
       });
+      await prefs.setBool('notifs', false);
     } else {
       setState(() {
         _notifs = notifs;

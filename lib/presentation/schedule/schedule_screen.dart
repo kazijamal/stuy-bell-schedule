@@ -60,6 +60,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                       Expanded(
                         child: Column(
                           children: <Widget>[
+                            // TODO unsupported on older Dart
                             for (var item in _periods) Text(item)
                           ],
                         ),
@@ -67,6 +68,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                       Expanded(
                         child: Column(
                           children: <Widget>[
+                            // TODO unsupported on older Dart
                             for (var item in _times) Text(item)
                           ],
                         ),
