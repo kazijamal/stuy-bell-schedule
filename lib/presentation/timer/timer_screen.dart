@@ -6,6 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../state/schedule_type.dart';
 import '../../state/timer_computations.dart';
 
+import './minutes_into.dart';
+import './minutes_left.dart';
+
 class TimerScreen extends StatefulWidget {
   @override
   _TimerScreenState createState() => _TimerScreenState();
@@ -76,27 +79,35 @@ class _TimerScreenState extends State<TimerScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(_schedule),
-                  Text(_period),
+                  Text(_schedule,
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  Text(
+                    _period,
+                    style: TextStyle(fontSize: 24),
+                  ),
+                  SizedBox(height: 20),
                   Row(
                     children: <Widget>[
                       Expanded(
                           child: Column(
                         children: <Widget>[
-                          Text('$_minutesInto'),
-                          Text('Minutes Into'),
+                          MinutesInto(value: _minutesInto),
                         ],
                       )),
                       Expanded(
                           child: Column(
                         children: <Widget>[
-                          Text('$_minutesLeft'),
-                          Text('Minutes Left'),
+                          MinutesLeft(value: _minutesLeft),
                         ],
                       )),
                     ],
                   ),
-                  Text('$_now'),
+                  SizedBox(height: 20),
+                  Text(
+                    '$_now',
+                    style: TextStyle(fontSize: 24),
+                  ),
                 ],
               ),
             ),
