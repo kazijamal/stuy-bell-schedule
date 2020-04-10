@@ -13,7 +13,9 @@ class ScheduleData {
   static List getPeriods(String schedule) {
     List<String> periods = new List();
     for (var period in scheduleMap[schedule].keys) {
-      periods.add(period);
+      if (period.split(' ')[0] != 'Between') {
+        periods.add(period);
+      }
     }
     return periods;
   }
@@ -29,16 +31,18 @@ class ScheduleData {
           (new DateTime(now.year, now.month, now.day)).millisecondsSinceEpoch;
 
       for (var period in scheduleMap[schedule].keys) {
-        int start = 1000 * scheduleMap[schedule][period]['start'];
-        start += startms;
-        int end = 1000 * scheduleMap[schedule][period]['end'];
-        end += startms;
-        var startDate = DateFormat.jm()
-            .format(new DateTime.fromMillisecondsSinceEpoch(start));
-        var endDate = DateFormat.jm()
-            .format(new DateTime.fromMillisecondsSinceEpoch(end));
-        String formatted = '$startDate' + ' - ' + '$endDate';
-        times.add(formatted);
+        if (period.split(' ')[0] != 'Between') {
+          int start = 1000 * scheduleMap[schedule][period]['start'];
+          start += startms;
+          int end = 1000 * scheduleMap[schedule][period]['end'];
+          end += startms;
+          var startDate = DateFormat.jm()
+              .format(new DateTime.fromMillisecondsSinceEpoch(start));
+          var endDate = DateFormat.jm()
+              .format(new DateTime.fromMillisecondsSinceEpoch(end));
+          String formatted = '$startDate' + ' - ' + '$endDate';
+          times.add(formatted);
+        }
       }
     }
 

@@ -26,7 +26,7 @@ class TimerComputations {
     for (var period in scheduleMap[schedule].keys) {
       int start = scheduleMap[schedule][period]['start'];
       int end = scheduleMap[schedule][period]['end'];
-      if (time >= start && time < end) {
+      if (time >= start && time <= end) {
         return period;
       }
     }
